@@ -1,0 +1,399 @@
+--------------------------------------------------
+-- Create Table C07538.SP_07538_SEC_GRP
+--------------------------------------------------
+Create table C07538.SP_07538_SEC_GRP (
+    EMPLID                         VARCHAR2(25)        NOT NULL,
+    SEC_GRP_ID                     VARCHAR2(250)       NOT NULL,
+    SEC_GRP_DESCR                  VARCHAR2(250)       NOT NULL,
+    LOGIN_ID                       VARCHAR2(250) ,
+    CRT_TS                         DATE ,
+    CRT_USER_ID                    VARCHAR2(30) ,
+    LST_UPDT_TS                    DATE ,
+    LST_UPDT_USER_ID               VARCHAR2(30) )
+Tablespace CDSDATA
+Storage (Initial 1M Next 1M MinExtents 1 MaxExtents Unlimited)
+PctFree 10
+IniTrans 1
+Maxtrans 255  ;
+Comment on Table C07538.SP_07538_SEC_GRP is 'This table is used to track the security groups assigned to an individual in Workday.';
+Comment on Column C07538.SP_07538_SEC_GRP.EMPLID  is 'The Worday employee ID';
+Comment on Column C07538.SP_07538_SEC_GRP.SEC_GRP_ID  is 'The Workday Security Group ID';
+Comment on Column C07538.SP_07538_SEC_GRP.SEC_GRP_DESCR  is 'The Workday Security Group Description';
+Comment on Column C07538.SP_07538_SEC_GRP.LOGIN_ID  is 'Login ID';
+Comment on Column C07538.SP_07538_SEC_GRP.CRT_TS  is 'Date and time record was added';
+Comment on Column C07538.SP_07538_SEC_GRP.CRT_USER_ID  is 'User ID that created the record';
+Comment on Column C07538.SP_07538_SEC_GRP.LST_UPDT_TS  is 'Date and time record was last updated';
+Comment on Column C07538.SP_07538_SEC_GRP.LST_UPDT_USER_ID  is 'User ID that last updated the record';
+
+--------------------------------------------------
+-- Create Index C07538.PK_SP_07538_SEC_GRP
+--------------------------------------------------
+create UNIQUE Index C07538.PK_SP_07538_SEC_GRP
+	on C07538.SP_07538_SEC_GRP
+	(EMPLID, SEC_GRP_ID)
+	Tablespace CDSINDEXES
+	Storage (Initial 1M  Next 1M MinExtents 1 MaxExtents 2147483645)
+	PctFree 10
+	IniTrans 2
+	Maxtrans 255   ;
+
+--------------------------------------------------
+-- Create Primary Key PK_SP_07538_SEC_GRP
+--------------------------------------------------
+alter table C07538.SP_07538_SEC_GRP
+	add constraint PK_SP_07538_SEC_GRP
+	Primary Key (EMPLID, SEC_GRP_ID);
+
+--------------------------------------------------
+-- Create Table C07538.SP_07538_EMPL_DATA
+--------------------------------------------------
+Create table C07538.SP_07538_EMPL_DATA (
+    EMPLID                         VARCHAR2(25)        NOT NULL,
+    OTHER_ID                       VARCHAR2(25) ,
+    NATL_ID                        VARCHAR2(250) ,
+    NATL_ID_TYPE                   VARCHAR2(250) ,
+    NATL_ID_CNTRY                  VARCHAR2(250) ,
+    LEG_LAST_NAME                  VARCHAR2(250) ,
+    LEG_FIRST_NAME                 VARCHAR2(250) ,
+    LEG_MIDDLE_NAME                VARCHAR2(250) ,
+    PRF_NAME                       VARCHAR2(250) ,
+    PRI_LANG                       VARCHAR2(250) ,
+    HOME_ADDRESS1                  VARCHAR2(250) ,
+    HOME_ADDRESS2                  VARCHAR2(250) ,
+    HOME_ADDRESS3                  VARCHAR2(250) ,
+    HOME_CITY                      VARCHAR2(250) ,
+    HOME_STATE                     VARCHAR2(250) ,
+    HOME_POSTAL                    VARCHAR2(250) ,
+    HOME_CNTRY                     VARCHAR2(250) ,
+    HOME_PHONE                     VARCHAR2(250) ,
+    WORK_PHONE                     VARCHAR2(250) ,
+    MOBILE_PHONE                   VARCHAR2(250) ,
+    WORK_EMAIL_ADDRESS             VARCHAR2(250) ,
+    ORIG_HIRE_DT                   DATE ,
+    HIRE_DT                        DATE ,
+    ADJ_SERVICE_DT                 DATE ,
+    BIRTHDATE                      DATE ,
+    TERMINATION_DT                 DATE ,
+    GENDER                         VARCHAR2(250) ,
+    JOBCODE                        VARCHAR2(250) ,
+    JOBTITLE                       VARCHAR2(250) ,
+    POSITION                       VARCHAR2(250) ,
+    POSITION_DESCR                 VARCHAR2(250) ,
+    WORKSITE                       VARCHAR2(250) ,
+    WORKSITE_DESCR                 VARCHAR2(250) ,
+    WORKSITE_CNTRY                 VARCHAR2(250) ,
+    FLSA_STATUS                    VARCHAR2(250) ,
+    FLSA_DESCR                     VARCHAR2(250) ,
+    EMPL_STATUS                    VARCHAR2(250) ,
+    EMPL_STATUS_DESCR              VARCHAR2(250) ,
+    TIME_TYPE                      VARCHAR2(250) ,
+    COMPANY                        VARCHAR2(250) ,
+    COMPANY_DESCR                  VARCHAR2(250) ,
+    GRADE                          VARCHAR2(250) ,
+    GRADE_DESCR                    VARCHAR2(250) ,
+    MANAGER_EMPLID                 VARCHAR2(250) ,
+    MANAGER_NAME                   VARCHAR2(250) ,
+    PAYGROUP                       VARCHAR2(250) ,
+    PAYGROUP_DESCR                 VARCHAR2(250) ,
+    PAY_FREQ                       VARCHAR2(250) ,
+    PAY_FREQ_DESCR                 VARCHAR2(250) ,
+    COMP_FREQUENCY                 VARCHAR2(250) ,
+    COMP_FREQ_DESCR                VARCHAR2(250) ,
+    ANNUAL_RT                      NUMBER(18,3) ,
+    CURRENCY_CD                    VARCHAR2(250) ,
+    UNION_CD                       VARCHAR2(250) ,
+    UNION_DESCR                    VARCHAR2(250) ,
+    EMPLOYEE_TYPE                  VARCHAR2(250) ,
+    EMPL_CLASS                     VARCHAR2(250) ,
+    STD_HRS                        VARCHAR2(250) ,
+    SUPERVISORY_ORG                VARCHAR2(250) ,
+    SUPERVISORY_ORG_DESCR          VARCHAR2(250) ,
+    CC_ORG_LVL1                    VARCHAR2(250) ,
+    CC_ORG_LVL1_DESCR              VARCHAR2(250) ,
+    CC_ORG_LVL2                    VARCHAR2(250) ,
+    CC_ORG_LVL2_DESCR              VARCHAR2(250) ,
+    CC_ORG_LVL3                    VARCHAR2(250) ,
+    CC_ORG_LVL3_DESCR              VARCHAR2(250) ,
+    CC_ORG_LVL4                    VARCHAR2(250) ,
+    CC_ORG_LVL4_DESCR              VARCHAR2(250) ,
+    CC_ORG_LVL5                    VARCHAR2(250) ,
+    CC_ORG_LVL5_DESCR              VARCHAR2(250) ,
+    CC_ORG_LVL6                    VARCHAR2(250) ,
+    CC_ORG_LVL6_DESCR              VARCHAR2(250) ,
+    CC_ORG_LVL7                    VARCHAR2(250) ,
+    CC_ORG_LVL7_DESCR              VARCHAR2(250) ,
+    CC_ORG_LVL8                    VARCHAR2(250) ,
+    CC_ORG_LVL8_DESCR              VARCHAR2(250) ,
+    SECURITY_ADMIN                 VARCHAR2(250) ,
+    DDP_EXISTS                     VARCHAR2(250) ,
+    ELEC_PAYSTUB_EXISTS            VARCHAR2(250) ,
+    PERSINFO_UPDT_EXISTS           VARCHAR2(250) ,
+    EMPL_WID                       VARCHAR2(250) ,
+    PRF_LAST_NAME                  VARCHAR2(250) ,
+    BUSN_TITLE                     VARCHAR2(250) ,
+    LOCATION_DESCR                 VARCHAR2(250) ,
+    MANAGER_BUSN_TITLE             VARCHAR2(250) ,
+    WORK_STATE                     VARCHAR2(250) ,
+    MAR_STATUS                     VARCHAR2(250) ,
+    FULL_LEG_NAME                  VARCHAR2(250) ,
+    FULL_PREF_NAME                 VARCHAR2(250) ,
+    LANG_PREF                      VARCHAR2(250) ,
+    REHIRE_IND                     VARCHAR2(250) ,
+    HR_PARTNER_EMPLID              VARCHAR2(250) ,
+    PERSONAL_EMAIL_ADDR            VARCHAR2(250) ,
+    PAY_RATE_TYPE                  VARCHAR2(250) ,
+    CRT_TS                         DATE ,
+    CRT_USER_ID                    VARCHAR2(30) ,
+    LST_UPDT_TS                    DATE ,
+    LST_UPDT_USER_ID               VARCHAR2(30) )
+Tablespace CDSDATA
+Storage (Initial 512K Next 512K MinExtents 1 MaxExtents Unlimited)
+PctFree 10
+IniTrans 1
+Maxtrans 255  ;
+Comment on Table C07538.SP_07538_EMPL_DATA is 'This table contains employee data from Workday';
+Comment on Column C07538.SP_07538_EMPL_DATA.EMPLID  is 'Workday Employee ID';
+Comment on Column C07538.SP_07538_EMPL_DATA.OTHER_ID  is 'Other Employee ID';
+Comment on Column C07538.SP_07538_EMPL_DATA.NATL_ID  is 'National ID';
+Comment on Column C07538.SP_07538_EMPL_DATA.NATL_ID_TYPE  is 'National ID Type';
+Comment on Column C07538.SP_07538_EMPL_DATA.NATL_ID_CNTRY  is 'National ID Country';
+Comment on Column C07538.SP_07538_EMPL_DATA.LEG_LAST_NAME  is 'Legal Last Name';
+Comment on Column C07538.SP_07538_EMPL_DATA.LEG_FIRST_NAME  is 'Legal First Name';
+Comment on Column C07538.SP_07538_EMPL_DATA.LEG_MIDDLE_NAME  is 'Legal Middle Name';
+Comment on Column C07538.SP_07538_EMPL_DATA.PRF_NAME  is 'Preferred Name';
+Comment on Column C07538.SP_07538_EMPL_DATA.PRI_LANG  is 'Primary Language';
+Comment on Column C07538.SP_07538_EMPL_DATA.HOME_ADDRESS1  is 'Home Address Line 1';
+Comment on Column C07538.SP_07538_EMPL_DATA.HOME_ADDRESS2  is 'Home Address Line 2';
+Comment on Column C07538.SP_07538_EMPL_DATA.HOME_ADDRESS3  is 'Home Address Line 3';
+Comment on Column C07538.SP_07538_EMPL_DATA.HOME_CITY  is 'Home City';
+Comment on Column C07538.SP_07538_EMPL_DATA.HOME_STATE  is 'Home State';
+Comment on Column C07538.SP_07538_EMPL_DATA.HOME_POSTAL  is 'Home Postal Code';
+Comment on Column C07538.SP_07538_EMPL_DATA.HOME_CNTRY  is 'Home Country';
+Comment on Column C07538.SP_07538_EMPL_DATA.HOME_PHONE  is 'Home Phone Number';
+Comment on Column C07538.SP_07538_EMPL_DATA.WORK_PHONE  is 'Work Phone Number';
+Comment on Column C07538.SP_07538_EMPL_DATA.MOBILE_PHONE  is 'Mobile Phone Number';
+Comment on Column C07538.SP_07538_EMPL_DATA.WORK_EMAIL_ADDRESS  is 'Work Email Address';
+Comment on Column C07538.SP_07538_EMPL_DATA.ORIG_HIRE_DT  is 'Original Hire Date';
+Comment on Column C07538.SP_07538_EMPL_DATA.HIRE_DT  is 'Hire/Re-hire Date';
+Comment on Column C07538.SP_07538_EMPL_DATA.ADJ_SERVICE_DT  is 'Adjusted Service Date';
+Comment on Column C07538.SP_07538_EMPL_DATA.BIRTHDATE  is 'Date of Birth';
+Comment on Column C07538.SP_07538_EMPL_DATA.TERMINATION_DT  is 'Termination Date';
+Comment on Column C07538.SP_07538_EMPL_DATA.GENDER  is 'Gender';
+Comment on Column C07538.SP_07538_EMPL_DATA.JOBCODE  is 'Job Code';
+Comment on Column C07538.SP_07538_EMPL_DATA.JOBTITLE  is 'Job Title';
+Comment on Column C07538.SP_07538_EMPL_DATA.POSITION  is 'Position Code';
+Comment on Column C07538.SP_07538_EMPL_DATA.POSITION_DESCR  is 'Position Title';
+Comment on Column C07538.SP_07538_EMPL_DATA.WORKSITE  is 'Worksite Code';
+Comment on Column C07538.SP_07538_EMPL_DATA.WORKSITE_DESCR  is 'Worksite Name';
+Comment on Column C07538.SP_07538_EMPL_DATA.WORKSITE_CNTRY  is 'Worksite Country';
+Comment on Column C07538.SP_07538_EMPL_DATA.FLSA_STATUS  is 'FLSA Status Code';
+Comment on Column C07538.SP_07538_EMPL_DATA.FLSA_DESCR  is 'FLSA Status Description';
+Comment on Column C07538.SP_07538_EMPL_DATA.EMPL_STATUS  is 'Employee Status Code';
+Comment on Column C07538.SP_07538_EMPL_DATA.EMPL_STATUS_DESCR  is 'Employee Status Description';
+Comment on Column C07538.SP_07538_EMPL_DATA.TIME_TYPE  is 'Time Type';
+Comment on Column C07538.SP_07538_EMPL_DATA.COMPANY  is 'Company Code';
+Comment on Column C07538.SP_07538_EMPL_DATA.COMPANY_DESCR  is 'Company Name';
+Comment on Column C07538.SP_07538_EMPL_DATA.GRADE  is 'Grade Code';
+Comment on Column C07538.SP_07538_EMPL_DATA.GRADE_DESCR  is 'Grade Description';
+Comment on Column C07538.SP_07538_EMPL_DATA.MANAGER_EMPLID  is 'Manager Employee ID';
+Comment on Column C07538.SP_07538_EMPL_DATA.MANAGER_NAME  is 'Manager Name';
+Comment on Column C07538.SP_07538_EMPL_DATA.PAYGROUP  is 'Pay Group Code';
+Comment on Column C07538.SP_07538_EMPL_DATA.PAYGROUP_DESCR  is 'Pay Group Description';
+Comment on Column C07538.SP_07538_EMPL_DATA.PAY_FREQ  is 'Pay Frequency Code';
+Comment on Column C07538.SP_07538_EMPL_DATA.PAY_FREQ_DESCR  is 'Pay Frequency Description';
+Comment on Column C07538.SP_07538_EMPL_DATA.COMP_FREQUENCY  is 'Compensation Frequency Code';
+Comment on Column C07538.SP_07538_EMPL_DATA.COMP_FREQ_DESCR  is 'Compensation Frequency Description';
+Comment on Column C07538.SP_07538_EMPL_DATA.ANNUAL_RT  is 'Annual Rate';
+Comment on Column C07538.SP_07538_EMPL_DATA.CURRENCY_CD  is 'Currency Code';
+Comment on Column C07538.SP_07538_EMPL_DATA.UNION_CD  is 'Union Code';
+Comment on Column C07538.SP_07538_EMPL_DATA.UNION_DESCR  is 'Union Description';
+Comment on Column C07538.SP_07538_EMPL_DATA.EMPLOYEE_TYPE  is 'Employee Type';
+Comment on Column C07538.SP_07538_EMPL_DATA.EMPL_CLASS  is 'Employee Classification';
+Comment on Column C07538.SP_07538_EMPL_DATA.STD_HRS  is 'Standard Hours';
+Comment on Column C07538.SP_07538_EMPL_DATA.SUPERVISORY_ORG  is 'Supervisory Org Code';
+Comment on Column C07538.SP_07538_EMPL_DATA.SUPERVISORY_ORG_DESCR  is 'Supervisory Org Description';
+Comment on Column C07538.SP_07538_EMPL_DATA.CC_ORG_LVL1  is 'Cost Center Org Level 1 Code';
+Comment on Column C07538.SP_07538_EMPL_DATA.CC_ORG_LVL1_DESCR  is 'Cost Center Org Level 1 Description';
+Comment on Column C07538.SP_07538_EMPL_DATA.CC_ORG_LVL2  is 'Cost Center Org Level 2 Code';
+Comment on Column C07538.SP_07538_EMPL_DATA.CC_ORG_LVL2_DESCR  is 'Cost Center Org Level 2 Description';
+Comment on Column C07538.SP_07538_EMPL_DATA.CC_ORG_LVL3  is 'Cost Center Org Level 3 Code';
+Comment on Column C07538.SP_07538_EMPL_DATA.CC_ORG_LVL3_DESCR  is 'Cost Center Org Level 3 Description';
+Comment on Column C07538.SP_07538_EMPL_DATA.CC_ORG_LVL4  is 'Cost Center Org Level 4 Code';
+Comment on Column C07538.SP_07538_EMPL_DATA.CC_ORG_LVL4_DESCR  is 'Cost Center Org Level 4 Description';
+Comment on Column C07538.SP_07538_EMPL_DATA.CC_ORG_LVL5  is 'Cost Center Org Level 5 Code';
+Comment on Column C07538.SP_07538_EMPL_DATA.CC_ORG_LVL5_DESCR  is 'Cost Center Org Level 5 Description';
+Comment on Column C07538.SP_07538_EMPL_DATA.CC_ORG_LVL6  is 'Cost Center Org Level 6 Code';
+Comment on Column C07538.SP_07538_EMPL_DATA.CC_ORG_LVL6_DESCR  is 'Cost Center Org Level 6 Description';
+Comment on Column C07538.SP_07538_EMPL_DATA.CC_ORG_LVL7  is 'Cost Center Org Level 7 Code';
+Comment on Column C07538.SP_07538_EMPL_DATA.CC_ORG_LVL7_DESCR  is 'Cost Center Org Level 7 Description';
+Comment on Column C07538.SP_07538_EMPL_DATA.CC_ORG_LVL8  is 'Cost Center Org Level 8 Code';
+Comment on Column C07538.SP_07538_EMPL_DATA.CC_ORG_LVL8_DESCR  is 'Cost Center Org Level 8 Description';
+Comment on Column C07538.SP_07538_EMPL_DATA.SECURITY_ADMIN  is 'Indicates if the employee is a Security Admin';
+Comment on Column C07538.SP_07538_EMPL_DATA.DDP_EXISTS  is 'Indicates if the employee has Direct Deposit (Y/N)';
+Comment on Column C07538.SP_07538_EMPL_DATA.ELEC_PAYSTUB_EXISTS  is 'Indicates if the employee has an electronic payh stub (Y/N)';
+Comment on Column C07538.SP_07538_EMPL_DATA.PERSINFO_UPDT_EXISTS  is 'Indicates if the employee has changed his/her personal information in Workday since the previous day (Y/N)';
+Comment on Column C07538.SP_07538_EMPL_DATA.EMPL_WID  is 'Employee WID';
+Comment on Column C07538.SP_07538_EMPL_DATA.PRF_LAST_NAME  is 'Preferred Last name';
+Comment on Column C07538.SP_07538_EMPL_DATA.BUSN_TITLE  is 'Business Title';
+Comment on Column C07538.SP_07538_EMPL_DATA.LOCATION_DESCR  is 'Location Description';
+Comment on Column C07538.SP_07538_EMPL_DATA.MANAGER_BUSN_TITLE  is 'Supervisor Business Title';
+Comment on Column C07538.SP_07538_EMPL_DATA.WORK_STATE  is 'State where the employee works';
+Comment on Column C07538.SP_07538_EMPL_DATA.MAR_STATUS  is 'Marital Status';
+Comment on Column C07538.SP_07538_EMPL_DATA.FULL_LEG_NAME  is 'Full Legal Name in Short Format';
+Comment on Column C07538.SP_07538_EMPL_DATA.FULL_PREF_NAME  is 'Full Preferred Name in Short Format';
+Comment on Column C07538.SP_07538_EMPL_DATA.LANG_PREF  is 'User language preference (locale)';
+Comment on Column C07538.SP_07538_EMPL_DATA.REHIRE_IND  is 'Flag to denote an employee is a re-hire (Y/N)';
+Comment on Column C07538.SP_07538_EMPL_DATA.HR_PARTNER_EMPLID  is 'Employee ID for the HR Partner aligned to the employee in Workday';
+Comment on Column C07538.SP_07538_EMPL_DATA.PERSONAL_EMAIL_ADDR  is 'Personal email address of the employee';
+Comment on Column C07538.SP_07538_EMPL_DATA.PAY_RATE_TYPE  is 'Pay rate type for the employee';
+Comment on Column C07538.SP_07538_EMPL_DATA.CRT_TS  is 'Timestamp when the row was inserted in CDS';
+Comment on Column C07538.SP_07538_EMPL_DATA.CRT_USER_ID  is 'User ID that inserted the row into CDS (typically an application user id)';
+Comment on Column C07538.SP_07538_EMPL_DATA.LST_UPDT_TS  is 'Timestamp when the row was last updated in CDS';
+Comment on Column C07538.SP_07538_EMPL_DATA.LST_UPDT_USER_ID  is 'User ID that updated the row in CDS (typically an application user id)';
+
+--------------------------------------------------
+-- Create Index C07538.IX_SP_07538_EMPL_DATA_01
+--------------------------------------------------
+create  Index C07538.IX_SP_07538_EMPL_DATA_01
+	on C07538.SP_07538_EMPL_DATA
+	(UPPER(NVL(LEG_LAST_NAME, ' ')))
+	Tablespace CDSINDEXES
+	Storage (Initial 1M  Next 1M MinExtents 1 MaxExtents 2147483645)
+	PctFree 10
+	IniTrans 2
+	Maxtrans 255   ;
+
+--------------------------------------------------
+-- Create Index C07538.IX_SP_07538_EMPL_DATA_02
+--------------------------------------------------
+create  Index C07538.IX_SP_07538_EMPL_DATA_02
+	on C07538.SP_07538_EMPL_DATA
+	(UPPER(NVL(LEG_FIRST_NAME, ' ')))
+	Tablespace CDSINDEXES
+	Storage (Initial 1M  Next 1M MinExtents 1 MaxExtents 2147483645)
+	PctFree 10
+	IniTrans 2
+	Maxtrans 255   ;
+
+--------------------------------------------------
+-- Create Index C07538.IX_SP_07538_EMPL_DATA_03
+--------------------------------------------------
+create  Index C07538.IX_SP_07538_EMPL_DATA_03
+	on C07538.SP_07538_EMPL_DATA
+	(UPPER(NVL(PRF_NAME, ' ')))
+	Tablespace CDSINDEXES
+	Storage (Initial 1M  Next 1M MinExtents 1 MaxExtents 2147483645)
+	PctFree 10
+	IniTrans 2
+	Maxtrans 255   ;
+
+--------------------------------------------------
+-- Create Index C07538.IX_SP_07538_EMPL_DATA_04
+--------------------------------------------------
+create  Index C07538.IX_SP_07538_EMPL_DATA_04
+	on C07538.SP_07538_EMPL_DATA
+	(UPPER(NVL(PRF_LAST_NAME, ' ')))
+	Tablespace CDSINDEXES
+	Storage (Initial 1M  Next 1M MinExtents 1 MaxExtents 2147483645)
+	PctFree 10
+	IniTrans 2
+	Maxtrans 255   ;
+
+--------------------------------------------------
+-- Create Index C07538.IX_SP_07538_EMPL_DATA_05
+--------------------------------------------------
+create  Index C07538.IX_SP_07538_EMPL_DATA_05
+	on C07538.SP_07538_EMPL_DATA
+	(MANAGER_EMPLID)
+	Tablespace CDSINDEXES
+	Storage (Initial 1M  Next 1M MinExtents 1 MaxExtents 2147483645)
+	PctFree 10
+	IniTrans 2
+	Maxtrans 255   ;
+
+--------------------------------------------------
+-- Create Index C07538.IX_SP_07538_EMPL_DATA_06
+--------------------------------------------------
+create  Index C07538.IX_SP_07538_EMPL_DATA_06
+	on C07538.SP_07538_EMPL_DATA
+	(FULL_LEG_NAME)
+	Tablespace CDSINDEXES
+	Storage (Initial 1M  Next 1M MinExtents 1 MaxExtents 2147483645)
+	PctFree 10
+	IniTrans 2
+	Maxtrans 255   ;
+
+--------------------------------------------------
+-- Create Index C07538.IX_SP_07538_EMPL_DATA_07
+--------------------------------------------------
+create  Index C07538.IX_SP_07538_EMPL_DATA_07
+	on C07538.SP_07538_EMPL_DATA
+	(FULL_PREF_NAME)
+	Tablespace CDSINDEXES
+	Storage (Initial 1M  Next 1M MinExtents 1 MaxExtents 2147483645)
+	PctFree 10
+	IniTrans 2
+	Maxtrans 255   ;
+
+--------------------------------------------------
+-- Create Index C07538.PK_SP_07538_EMPL_DATA
+--------------------------------------------------
+create UNIQUE Index C07538.PK_SP_07538_EMPL_DATA
+	on C07538.SP_07538_EMPL_DATA
+	(EMPLID)
+	Tablespace CDSDATA
+	Storage (Initial 1M  Next 1M MinExtents 1 MaxExtents 2147483645)
+	PctFree 10
+	IniTrans 2
+	Maxtrans 255   ;
+
+--------------------------------------------------
+-- Create Primary Key PK_SP_07538_EMPL_DATA
+--------------------------------------------------
+alter table C07538.SP_07538_EMPL_DATA
+	add constraint PK_SP_07538_EMPL_DATA
+	Primary Key (EMPLID);
+
+--------------------------------------------------
+-- Create Table C07538.SP_07538_BATCH_ADAPTER
+--------------------------------------------------
+Create table C07538.SP_07538_BATCH_ADAPTER (
+    ADAPTER                        VARCHAR2(100)       NOT NULL,
+    RUN_TS                         DATE                NOT NULL,
+    LAST_KEY_PROCESSED             VARCHAR2(100)       NOT NULL,
+    NUM_RECS_PROCESSED             NUMBER ,
+    RUN_STATUS                     VARCHAR2(1) ,
+    CRT_TS                         DATE ,
+    CRT_USER_ID                    VARCHAR2(30) ,
+    LST_UPDT_TS                    DATE ,
+    LST_UPDT_USER_ID               VARCHAR2(30) )
+Tablespace CDSDATA
+Storage (Initial 56K Next 512K MinExtents 1 MaxExtents Unlimited)
+PctFree 10
+IniTrans 1
+Maxtrans 255
+Nologging ;
+Comment on Column C07538.SP_07538_BATCH_ADAPTER.ADAPTER  is 'This tracks the adapter which is inserting this row.';
+Comment on Column C07538.SP_07538_BATCH_ADAPTER.RUN_TS  is 'This is the start time of the program';
+Comment on Column C07538.SP_07538_BATCH_ADAPTER.LAST_KEY_PROCESSED  is 'This is the last committed key value (could be time stamp or emplid, etc.)';
+Comment on Column C07538.SP_07538_BATCH_ADAPTER.NUM_RECS_PROCESSED  is 'Contains number of records processed by the adapter';
+Comment on Column C07538.SP_07538_BATCH_ADAPTER.RUN_STATUS  is 'Indicates if the job ran to success (S) or failed (F)';
+
+--------------------------------------------------
+-- Create Index C07538.PK_SP_07538_BATCH_ADAPTER
+--------------------------------------------------
+create UNIQUE Index C07538.PK_SP_07538_BATCH_ADAPTER
+	on C07538.SP_07538_BATCH_ADAPTER
+	(ADAPTER, RUN_TS)
+	Tablespace CDSINDEXES
+	Storage (Initial 1M  Next 1M MinExtents 1 MaxExtents 2147483645)
+	PctFree 10
+	IniTrans 2
+	Maxtrans 255   ;
+
+--------------------------------------------------
+-- Create Primary Key PK_SP_07538_BATCH_ADAPTER
+--------------------------------------------------
+alter table C07538.SP_07538_BATCH_ADAPTER
+	add constraint PK_SP_07538_BATCH_ADAPTER
+	Primary Key (ADAPTER, RUN_TS);

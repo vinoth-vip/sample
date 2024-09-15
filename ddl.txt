@@ -1,0 +1,95 @@
+--------------------------------------------------
+-- Create View C02233.SP_HRACCEL_VW
+--------------------------------------------------
+Create or Replace view C02233.SP_HRACCEL_VW 
+	(RECORD_TYPE, SSN, EMPL_STATUS, LOCATION_CODE, LOC_DESCR, ORG_UNIT, ORG_DESC, POSITION_CODE, POSITION_DESC, JOB_CODE, JOB_DESC, LASTNAME, MDL_INITIAL_TXT, FIRSTNAME, GENDER, EEID, ADDRESS1, CITY, DISTRICT, ZIP, COUNTRY, UNION_CODE, HRLY_SALY, HRLY_SALY_DESC, MOST_RECENT_HIRE_DT, TERM_DATE, EXEC_FLAG, HR_IND, EMPL_STATUS_DESC, FILLER_3, FILLER_4, FILLER_5, CLIENT_ID, CREATE_DT, CDD1, CDD2, CDD3, CDD4, CDD5) 
+as 
+	SELECT '20' as "RECORD_TYPE"
+ ,a.NATL_ID as "SSN"
+ ,a.EMPL_STATUS as "EMPL_STATUS"
+ ,substr(a.WORKSITE,1,20) as "LOCATION"
+ ,substr(a.WORKSITE_DESCR,1,100) as "LOC_DESCR"
+ ,substr(a.CC_ORG_LVL3,1,100) as "ORG_UNIT"
+ ,substr(a.CC_ORG_LVL3_DESCR,1,100) as "ORG_DESC"
+ ,substr(a.POSITION,1,50) as "POSITION_CODE"
+ ,substr(a.POSITION_DESCR,1,100) as "POSITION_DESC"
+ ,substr(a.jobcode,1,50) as "JOB_CODE"
+ ,substr(a.jobtitle,1,100) as "JOB_DESC"
+ ,substr(a.LEG_LAST_NAME,1,50) as "LASTNAME"
+ ,substr(a.LEG_MIDDLE_NAME,1,50) as "MDL_INITIAL_TXT"
+ ,substr(a.LEG_FIRST_NAME,1,50) as "FIRSTNAME"
+ ,' ' as "GENDER"
+ ,a.EMPLID as "EEID"
+ ,' ' as "ADDRESS1"
+ ,' ' as "CITY"
+ ,substr(a.HOME_STATE,1,20) as "DISTRICT"
+ ,substr(a.HOME_POSTAL,1,20) as "ZIP"
+ ,substr(a.HOME_CNTRY,1,20) as "COUNTRY"
+ ,'N' as "UNION_CODE"
+ ,a.FLSA_STATUS as "HRLY_SALY"
+ ,substr(a.FLSA_DESCR,1,50) as "HRLY_SALY_DESC"
+ ,a.HIRE_DT as "MOST_RECENT_HIRE_DT"
+ ,a.termination_dt as "TERM_DATE"
+ , 'N' as "EXEC_FLAG"
+ ,CASE
+ WHEN (SELECT distinct EMPLID
+ FROM C02233.SP_02233_SEC_GRP
+ WHERE SEC_GRP_ID IN ('Absence_Partner_orgGroup','Affirmative_Action_Partner',
+'Benefits_Partner_orgGroup','Compensation_Partner_orgGroup',
+'Global_Mobility_Partner_orgGroup','Local Compensation Partner',
+'Payroll_Interface_Partner_orgGroup','Recruiting_Coordinator_orgGroup',
+'Retiree_Partner_orgGroup','Local_HR','Final HR Approver','Final_HR_Approver',
+'HR_Advisor_orgGroup','HR_Connect_orgGroup','HR_Global_View_orgGroup',
+'HR_Leader_orgGroup','HR_Processor_orgGroup')
+ and emplid = a.emplid ) IS NOT NULL THEN 'Y'
+ ELSE 'N'
+ END as "HR_IND"
+ ,a.EMPL_STATUS_DESCR as "EMPL_STATUS_DESC"
+ ,' ' as "FILLER_3"
+ ,' ' as "FILLER_4"
+ ,' ' as "FILLER_5"
+ ,'02233' as "CLIENT_ID"
+ ,sysdate AS "CREATE_DT"
+ ,substr(WORKSITE_CNTRY,1,100) as "CDD1"
+ ,' ' as "CDD2"
+ ,CASE WHEN EXISTS (SELECT 1 FROM C02233.SP_02233_EMPL_DATA A1
+ WHERE A.EMPLID = A1.MANAGER_EMPLID
+ AND A1.EMPL_STATUS IN ('A','L','P','S')) THEN 'Y'
+ ELSE 'N' END as "CDD3"
+ ,' ' as "CDD4"
+ ,' ' as "CDD5"
+ from
+ C02233.SP_02233_EMPL_DATA a
+ 
+With Read Only;
+
+--------------------------------------------------
+-- Create View C02233.SP_PERSON_SEARCH_V
+--------------------------------------------------
+Create or Replace view C02233.SP_PERSON_SEARCH_V 
+	(EMPLID, EMPL_WID, EMPL_STATUS, LEG_FIRST_NAME, LEG_LAST_NAME, PRF_NAME, PRF_LAST_NAME, BUSN_TITLE, LOCATION, DEPT_DESCR, MANAGER_NAME, MANAGER_BUSN_TITLE, ORIG_HIRE_DT, HIRE_DT, FULL_LEG_NAME, FULL_PREF_NAME, MAN_PREF_NAME) 
+as 
+	SELECT 
+EMPLID,
+EMPL_WID as EMPL_WID,
+EMPL_STATUS,
+LEG_FIRST_NAME,
+LEG_LAST_NAME,
+PRF_NAME,
+PRF_LAST_NAME as PRF_LAST_NAME,
+BUSN_TITLE as BUSN_TITLE,
+LOCATION_DESCR as LOCATION,
+SUPERVISORY_ORG_DESCR as DEPT_DESCR,
+MANAGER_NAME,
+MANAGER_BUSN_TITLE as MANAGER_BUSN_TITLE,
+ORIG_HIRE_DT, 
+HIRE_DT,
+FULL_LEG_NAME,
+FULL_PREF_NAME,
+(SELECT b.FULL_PREF_NAME FROM C02233.SP_02233_EMPL_DATA b WHERE a.MANAGER_EMPLID=b.EMPLID) AS MAN_PREF_NAME 
+from C02233.SP_02233_EMPL_DATA a
+where EMPL_STATUS in('A','L','P','S')
+ 
+With Read Only;
+
+drop table c01487.SP_01487_EMPL_DATA_BACK;

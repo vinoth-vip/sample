@@ -1,0 +1,58 @@
+--------------------------------------------------
+-- Create Table C07538.SP_07538_PAY_CHECK
+--------------------------------------------------
+Create table C07538.SP_07538_PAY_CHECK (
+EMPLID                         VARCHAR2(25)        NOT NULL,
+NATL_ID                        VARCHAR2(250)       NOT NULL,
+CHECK_NUM                      VARCHAR2(250) ,
+CHECK_DT                       DATE                NOT NULL,
+NET_PAY                        NUMBER(18,3)        NOT NULL,
+CURRENCY_CD                    VARCHAR2(3) ,
+CRT_TS                         DATE ,
+CRT_USER_ID                    VARCHAR2(30) ,
+LST_UPDT_TS                    DATE ,
+LST_UPDT_USER_ID               VARCHAR2(30) )
+Tablespace CDSDATA
+Storage (Initial 1M Next 1M MinExtents 1 MaxExtents Unlimited)
+PctFree 10
+IniTrans 1
+Maxtrans 255  ;
+Comment on Table C07538.SP_07538_PAY_CHECK is 'This table is used to track the pay check assigned to an individual in Workday.';
+Comment on Column C07538.SP_07538_PAY_CHECK.EMPLID  is 'employee ID';
+Comment on Column C07538.SP_07538_PAY_CHECK.NATL_ID  is 'National ID';
+Comment on Column C07538.SP_07538_PAY_CHECK.CHECK_NUM  is 'Check Number';
+Comment on Column C07538.SP_07538_PAY_CHECK.CHECK_DT  is 'Check Date';
+Comment on Column C07538.SP_07538_PAY_CHECK.NET_PAY  is 'Net Pay';
+Comment on Column C07538.SP_07538_PAY_CHECK.CURRENCY_CD  is 'Currency Code';
+Comment on Column C07538.SP_07538_PAY_CHECK.CRT_TS  is 'Date and time record was added';
+Comment on Column C07538.SP_07538_PAY_CHECK.CRT_USER_ID  is 'User ID that created the record';
+Comment on Column C07538.SP_07538_PAY_CHECK.LST_UPDT_TS  is 'Date and time record was last updated';
+Comment on Column C07538.SP_07538_PAY_CHECK.LST_UPDT_USER_ID  is 'User ID that last updated the record';
+
+
+--------------------------------------------------
+-- Create Index C07538.PK_SP_07538_PAY_CHECK
+--------------------------------------------------
+create UNIQUE Index C07538.PK_SP_07538_PAY_CHECK
+on C07538.SP_07538_PAY_CHECK
+(EMPLID)
+Tablespace CDSINDEXES
+Storage (Initial 1M  Next 1M MinExtents 1 MaxExtents 2147483645)
+PctFree 10
+IniTrans 2
+Maxtrans 255   ;
+
+--------------------------------------------------
+-- Create Primary Key PK_SP_07538_PAY_CHECK
+--------------------------------------------------
+alter table C07538.SP_07538_PAY_CHECK
+add constraint PK_SP_07538_PAY_CHECK
+Primary Key (EMPLID);
+
+
+--------------------------------------------------
+-- Create View C07538.SP_AD_NETPAY_VW
+--------------------------------------------------
+Create view C07538.SP_AD_NETPAY_VW
+
+Select EMPLID, NATL_ID AS NATIONAL_ID, CHECK_NUM, CHECK_DT, NET_PAY, CURRENCY_CD from C07538.SP_AD_NETPAY_VW;
